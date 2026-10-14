@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Unit 4 The All Sorts • المعلم ماجد السويهري • درس وتطبيقات تفاعلية</title>
+
+  <!-- Tailwind CSS & Canvas Confetti -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts: Fredoka & Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #fffdf5 0%, #fef7ee 30%, #f4f6ff 70%, #ecfeff 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .en-font {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+
+    /* Wooden Plaque for Teacher Badge matching original poster */
+    .wood-plaque {
+      background: linear-gradient(180deg, #d97706 0%, #b45309 30%, #92400e 70%, #78350f 100%);
+      border: 3.5px solid #451a03;
+      box-shadow: 0 10px 20px -5px rgba(69, 26, 3, 0.4), inset 0 2px 4px rgba(254, 243, 199, 0.4);
+      position: relative;
+    }
+    .wood-plaque::before, .wood-plaque::after {
+      content: '';
+      position: absolute;
+      top: -14px;
+      width: 4px;
+      height: 16px;
+      background: #78350f;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .wood-plaque::before { left: 18px; }
+    .wood-plaque::after { right: 18px; }
+
+    /* Comic Story Panels */
+    .comic-panel {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 2.5px solid #cbd5e1;
+      border-radius: 24px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .comic-panel:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 12px 24px -6px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Speech Bubble Styling */
+    .speech-bubble {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #0f172a;
+      border-radius: 18px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .speech-bubble:hover {
+      transform: scale(1.04);
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+    .speech-bubble.is-speaking {
+      background: #fef08a !important;
+      border-color: #eab308 !important;
+      box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.35);
+      transform: scale(1.05);
+    }
+
+    /* Matching Item Cards */
+    .match-item-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 18px;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    .match-item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px -4px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
+    }
+    .match-item-card.is-selected {
+      border-color: #0284c7 !important;
+      background-color: #f0f9ff !important;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.35) !important;
+      transform: scale(1.02);
+    }
+    .match-item-card.is-matched {
+      background-color: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+    }
+
+    /* Animation effects */
+    @keyframes shakeCard {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake-anim {
+      animation: shakeCard 0.45s ease-in-out;
+    }
+
+    @keyframes popBounce {
+      0% { transform: scale(0.92); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .pop-success {
+      animation: popBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Paint Color Pipette Circles */
+    .color-swatch {
+      width: 26px;
+      height: 26px;
+      border-radius: 9999px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .color-swatch:hover, .color-swatch.active-swatch {
+      transform: scale(1.22);
+      box-shadow: 0 0 0 3px #0284c7;
+    }
+
+    /* Printable Optimizations */
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+      .worksheet-canvas { border: none !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 lg:p-8 flex justify-center">
+
+  <div class="w-full max-w-4xl flex flex-col items-center">
+
+    <!-- Top Ribbon Toolbar (No Print) -->
+    <header class="no-print w-full bg-white/95 backdrop-blur-md px-4 py-3 rounded-3xl shadow-sm border-2 border-amber-200 mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-400 to-sky-400 flex items-center justify-center text-xl shadow-xs">
+          🌟
+        </span>
+        <div>
+          <h1 class="text-xs sm:text-sm font-black text-slate-800 leading-tight">Unit 4: The All Sorts • درس وتمارين تفاعلية</h1>
+          <p class="text-[11px] font-bold text-sky-700">إشراف: الأستاذ ماجد السويهري • نطق إنجليزي فصيح 🇨🇦</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons & Audio Rate Controls -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- Sound Toggle -->
+        <button onclick="toggleAudioMute()" id="btnMuteToggle" class="w-9 h-9 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm flex items-center justify-center transition active:scale-95" title="كتم / تشغيل الصوت">
+          <span id="muteIcon">🔊</span>
+        </button>
+
+        <!-- Speed Toggle -->
+        <div class="inline-flex rounded-2xl bg-slate-100 p-1 border border-slate-200 text-xs">
+          <button onclick="setAudioSpeed(0.85)" id="speedSlow" class="px-2 py-0.5 rounded-xl font-bold text-slate-600 hover:bg-white transition">0.8x</button>
+          <button onclick="setAudioSpeed(1.0)" id="speedNormal" class="px-2.5 py-0.5 rounded-xl bg-sky-600 text-white font-black shadow-xs transition">1.0x</button>
+        </div>
+
+        <!-- Toggle Arabic Translations -->
+        <button id="toggleTransBtn" onclick="toggleTranslations()" class="px-3 py-1.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 text-xs font-black transition flex items-center gap-1 shadow-2xs">
+          <span>🌐</span>
+          <span id="transBtnText">إخفاء الترجمة</span>
+        </button>
+
+        <!-- Score Badge -->
+        <div class="px-3.5 py-1.5 rounded-2xl bg-emerald-600 text-white text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-sm">
+          <span>⭐ النقاط:</span>
+          <span id="scoreTracker" class="en-font text-base font-black">0</span>
+          <span>/ 18</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Interactive Textbook Sheet Canvas -->
+    <main class="worksheet-canvas w-full bg-white rounded-[38px] p-4 sm:p-7 md:p-8 shadow-2xl border-4 border-amber-300 relative overflow-hidden">
+
+      <!-- Worksheet Header (Matching image upper portion) -->
+      <div class="flex items-start justify-between w-full mb-6 pb-4 border-b-2 border-slate-100 relative">
+        
+        <!-- Wooden Plaque Badge: المعلم ماجد السويهري (Upper Left in Image) -->
+        <div class="wood-plaque px-6 py-2.5 rounded-2xl flex items-center gap-2 transform -rotate-1 hover:rotate-0 transition duration-300 select-none">
+          <span class="text-xl">📜</span>
+          <span class="text-amber-100 font-black text-sm sm:text-base tracking-wide drop-shadow-md">
+            المعلم: ماجد السويهري
+          </span>
+        </div>
+
+        <!-- Right Side Header Decorative Confetti Stars -->
+        <div class="flex items-center gap-2 text-xl sm:text-2xl select-none">
+          <span class="animate-pulse text-amber-400">⭐</span>
+          <span class="text-rose-400">🎉</span>
+          <span class="text-sky-400">✨</span>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           EXERCISE 1: LISTEN, READ, AND ANSWER
+           ========================================================================= -->
+      <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-amber-50/50 border-2 border-amber-300 shadow-2xs">
+        
+        <!-- Exercise Title Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4" dir="ltr">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-amber-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
+              1
+            </span>
+            <span class="text-xl">🎧</span>
+            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
+              Listen, read, and answer.
+            </h2>
+          </div>
+          <button onclick="playFullComicStory()" id="btnPlayAllStory" class="px-3.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 font-black text-xs transition flex items-center gap-1.5 shadow-2xs">
+            <span>▶️</span>
+            <span>استمع للقصة كاملة بالترتيب</span>
+          </button>
+        </div>
+
+        <!-- 2 Questions (1 & 2) in 2 Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" dir="ltr">
+          
+          <!-- Question 1 -->
+          <div class="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-2xs" id="qBox-1">
+            <div class="flex items-center gap-2 mb-2.5">
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font">1</span>
+              <p class="en-font font-black text-base text-slate-900">
+                The All Sorts are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q1">_________</span>
+              </p>
+            </div>
+            <div class="space-y-1.5">
+              <button onclick="checkEx1Question(1, 'a', true, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">a</span>
+                <span>on the playground.</span>
+              </button>
+              <button onclick="checkEx1Question(1, 'b', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">b</span>
+                <span>in the classroom.</span>
+              </button>
+              <button onclick="checkEx1Question(1, 'c', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">c</span>
+                <span>at their house.</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-2xs" id="qBox-2">
+            <div class="flex items-center gap-2 mb-2.5">
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font">2</span>
+              <p class="en-font font-black text-base text-slate-900">
+                They are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q2">_________</span>
+              </p>
+            </div>
+            <div class="space-y-1.5">
+              <button onclick="checkEx1Question(2, 'a', true, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">a</span>
+                <span>playing a game.</span>
+              </button>
+              <button onclick="checkEx1Question(2, 'b', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">b</span>
+                <span>having lunch.</span>
+              </button>
+              <button onclick="checkEx1Question(2, 'c', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
+                <span class="text-rose-600 font-black en-font">c</span>
+                <span>talking to students.</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- The 4 Cartoon Comic Story Panels (The All Sorts) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" dir="ltr">
+          
+          <!-- Panel 1 -->
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-sky-50/30">
+            <div class="flex items-start justify-between gap-2">
+              <div onclick="speakBubble(this, 'How was your first vacation abroad?')" class="speech-bubble text-xs font-bold text-slate-800">
+                How was your <span class="text-blue-600 font-black">first</span> vacation abroad? 💬
+              </div>
+              <div onclick="speakBubble(this, 'Excellent!')" class="speech-bubble text-xs font-bold text-slate-800">
+                Excellent! 💬
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-around my-2 text-3xl sm:text-4xl select-none">
+              <span title="Teacher">👨🏻‍🏫</span>
+              <span title="Creature 1">👾</span>
+              <span title="Creature 2">🍊</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-2">
+              <div onclick="speakBubble(this, 'It was brilliant!')" class="speech-bubble text-xs font-bold text-slate-800">
+                It was <span class="text-emerald-600 font-black">brilliant</span>! 💬
+              </div>
+              <div onclick="speakBubble(this, '..and exciting!')" class="speech-bubble text-xs font-bold text-slate-800">
+                ..and <span class="text-purple-600 font-black">exciting</span>! 💬
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2 -->
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-amber-50/30">
+            <div class="flex items-start justify-between gap-2">
+              <div onclick="speakBubble(this, 'Let\'s climb that wall!')" class="speech-bubble text-xs font-bold text-slate-800">
+                Let's climb that wall! 💬
+              </div>
+              <div onclick="speakBubble(this, 'I\'m surprised at you, Glo. That\'s a dangerous idea!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[210px]">
+                I'm <span class="text-sky-600 font-black">surprised</span> at you, Glo. That's a <span class="text-rose-600 font-black">dangerous</span> idea! 💬
+              </div>
+            </div>
+
+            <div class="flex items-center justify-around my-2 text-3xl sm:text-4xl select-none">
+              <span title="Glo">🟠</span>
+              <span title="Blue friend">💧</span>
+              <span title="Red friend">🔴</span>
+            </div>
+
+            <span class="text-[10px] text-slate-400 font-bold text-center">💡 انقر على أي فقاعة لسماع نطقها فوراً</span>
+          </div>
+
+          <!-- Panel 3 -->
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-rose-50/30">
+            <div class="flex items-start justify-between gap-2">
+              <div onclick="speakBubble(this, 'It\'s more dangerous than other games!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[140px]">
+                It's more <span class="text-rose-600 font-black">dangerous</span> than other games! 💬
+              </div>
+              <div onclick="speakBubble(this, 'It\'s a terrible game!')" class="speech-bubble text-xs font-bold text-slate-800">
+                It's a <span class="text-amber-600 font-black">terrible</span> game! 💬
+              </div>
+            </div>
+
+            <div class="flex items-center justify-around my-1 text-3xl sm:text-4xl select-none">
+              <span title="Yellow friend">⭐</span>
+              <span title="Afraid creature">😨</span>
+              <span title="Glo naughty">😈</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-1 flex-wrap">
+              <div onclick="speakBubble(this, 'I\'m afraid of heights!')" class="speech-bubble text-xs font-bold text-slate-800">
+                I'm <span class="text-sky-600 font-black">afraid</span> of heights! 💬
+              </div>
+              <div onclick="speakBubble(this, 'Can I go second?')" class="speech-bubble text-xs font-bold text-slate-800">
+                Can I go <span class="text-indigo-600 font-black">second</span>? 💬
+              </div>
+              <div onclick="speakBubble(this, 'Don\'t be naughty, Glo!')" class="speech-bubble text-xs font-bold text-slate-800">
+                Don't be <span class="text-emerald-600 font-black">naughty</span>, Glo! 💬
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4 -->
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-emerald-50/30">
+            <div class="flex items-start justify-between gap-2">
+              <div onclick="speakBubble(this, 'It\'s the fifth time. Let\'s play a different game!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[190px]">
+                It's the <span class="text-sky-600 font-black">fifth</span> time. Let's play a <span class="text-indigo-600 font-black">different</span> game! 💬
+              </div>
+              <div onclick="speakBubble(this, 'Yes! Let\'s tell our stories!')" class="speech-bubble text-xs font-bold text-slate-800">
+                Yes! Let's tell our stories! 💬
+              </div>
+            </div>
+
+            <div class="flex items-center justify-around my-2 text-3xl sm:text-4xl select-none">
+              <span title="Purple creature">🍆</span>
+              <span title="Sunflower">🌻</span>
+              <span title="Creature">🫐</span>
+            </div>
+
+            <div onclick="speakBubble(this, 'Oh, no! Time for class!')" class="speech-bubble text-xs font-bold text-slate-800 self-center">
+              Oh, no! Time for class! 🔔💬
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =========================================================================
+           EXERCISE 2: READ, LOOK, AND MATCH (THE 8 ADJECTIVES - NONE PRE-ANSWERED)
+           ========================================================================= -->
+      <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-sky-50/50 border-2 border-sky-300 shadow-2xs">
+        
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4" dir="ltr">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-rose-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
+              2
+            </span>
+            <span class="text-xl">🎧</span>
+            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
+              Read, look, and match. Then listen and say.
+            </h2>
+          </div>
+          <span class="text-xs font-bold text-sky-900 bg-sky-100 px-3 py-1 rounded-full border border-sky-200" dir="rtl">
+            اضغط على الكلمة ثم على صورتها لتوصيلها وحل السؤال 💡
+          </span>
+        </div>
+
+        <!-- 8 Adjectives & 8 Pictures in Parallel Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" dir="ltr">
+          
+          <!-- LEFT COLUMN: The 8 Adjectives -->
+          <div class="flex flex-col gap-3" id="adjectivesList">
+            
+            <!-- 1 afraid (غير مجاب - متاح لحل الطالب) -->
+            <div onclick="selectAdjectiveCard(1, 'afraid', 'b', this)" id="adjCard-1" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">1</span> afraid
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">خائف / مرعوب</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-1" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 2 brilliant -->
+            <div onclick="selectAdjectiveCard(2, 'brilliant', 'f', this)" id="adjCard-2" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">2</span> brilliant
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">رائع / عبقري</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-2" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 3 dangerous -->
+            <div onclick="selectAdjectiveCard(3, 'dangerous', 'g', this)" id="adjCard-3" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">3</span> dangerous
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">خطير</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-3" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 4 different -->
+            <div onclick="selectAdjectiveCard(4, 'different', 'a', this)" id="adjCard-4" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">4</span> different
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">مختلف</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-4" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 5 exciting -->
+            <div onclick="selectAdjectiveCard(5, 'exciting', 'c', this)" id="adjCard-5" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">5</span> exciting
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">مثير / مشوق</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-5" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 6 naughty -->
+            <div onclick="selectAdjectiveCard(6, 'naughty', 'e', this)" id="adjCard-6" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">6</span> naughty
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">شقي / مشاغب</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-6" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 7 terrible -->
+            <div onclick="selectAdjectiveCard(7, 'terrible', 'd', this)" id="adjCard-7" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">7</span> terrible
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">فظيع / سيء جداً</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-7" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+            <!-- 8 surprised -->
+            <div onclick="selectAdjectiveCard(8, 'surprised', 'h', this)" id="adjCard-8" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
+              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                <span class="text-rose-600">8</span> surprised
+              </span>
+              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">متفاجئ / مندهش</span>
+              <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
+                <span class="text-slate-400">__</span>
+                <span id="adjSlot-8" class="text-sky-700 font-black px-1"> </span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: The 8 Picture Cards (a to h) - حجم متناسق ومريح بدون زيادة -->
+          <div class="grid grid-cols-2 gap-2.5 sm:gap-3" id="adjPicsGrid">
+            
+            <!-- a: Two different shirts -->
+            <div onclick="selectAdjPicCard('a', 'different', 4, this)" id="adjPic-a" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">a</span>
+              <div class="w-16 h-11 sm:w-20 sm:h-13 flex items-center justify-center my-0.5">
+                <svg class="w-full h-full drop-shadow-xs" viewBox="0 0 85 55" fill="none">
+                  <path d="M6 16L18 6L30 16V46H6V16Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+                  <line x1="6" y1="23" x2="30" y2="23" stroke="#ffffff" stroke-width="2.5"/>
+                  <line x1="6" y1="31" x2="30" y2="31" stroke="#ffffff" stroke-width="2.5"/>
+                  <line x1="6" y1="39" x2="30" y2="39" stroke="#ffffff" stroke-width="2.5"/>
+                  <path d="M46 16L58 6L70 16V46H46V16Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.5"/>
+                  <polygon points="58,26 60,31 65,31 61,34 63,39 58,36 53,39 55,34 51,31 56,31" fill="#facc15"/>
+                </svg>
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">two different shirts</span>
+            </div>
+
+            <!-- b: Afraid girl (غير مجابة - بطاقة تفاعلية لحل الطالب) -->
+            <div onclick="selectAdjPicCard('b', 'afraid', 1, this)" id="adjPic-b" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">b</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                😨
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">afraid</span>
+            </div>
+
+            <!-- c: Exciting boy jumping -->
+            <div onclick="selectAdjPicCard('c', 'exciting', 5, this)" id="adjPic-c" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">c</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                🕺🎉
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">jumping excitedly</span>
+            </div>
+
+            <!-- d: Thumbs down (Terrible) -->
+            <div onclick="selectAdjPicCard('d', 'terrible', 7, this)" id="adjPic-d" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">d</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                👎
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">terrible (bad)</span>
+            </div>
+
+            <!-- e: Naughty spilled bowl -->
+            <div onclick="selectAdjPicCard('e', 'naughty', 6, this)" id="adjPic-e" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">e</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                🥣💥
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">naughty action</span>
+            </div>
+
+            <!-- f: Brilliant smart thinking -->
+            <div onclick="selectAdjPicCard('f', 'brilliant', 2, this)" id="adjPic-f" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">f</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                💡🧠
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">brilliant idea</span>
+            </div>
+
+            <!-- g: Danger warning triangle -->
+            <div onclick="selectAdjPicCard('g', 'dangerous', 3, this)" id="adjPic-g" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">g</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                ⚠️
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">dangerous</span>
+            </div>
+
+            <!-- h: Surprised girl -->
+            <div onclick="selectAdjPicCard('h', 'surprised', 8, this)" id="adjPic-h" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
+              <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">h</span>
+              <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
+                😲
+              </div>
+              <span class="text-[11px] sm:text-xs font-bold text-slate-600">surprised</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =========================================================================
+           EXERCISE 3: LOOK, READ, AND MATCH (ORDINALS - ALL BLANKS OPEN)
+           ========================================================================= -->
+      <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-purple-50/50 border-2 border-purple-300 shadow-2xs">
+        
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4" dir="ltr">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-amber-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
+              3
+            </span>
+            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
+              Look, read, and match.
+            </h2>
+          </div>
+          <span class="text-xs font-bold text-purple-900 bg-purple-100 px-3 py-1 rounded-full border border-purple-200" dir="rtl">
+            انقر على الكلمة بالأسفل ثم انقر على الرمز الترتيبي المناسب بالأعلى
+          </span>
+        </div>
+
+        <!-- Row of 8 Ordinal Symbol Badges (a to h) - جميعها فارغة ومتاحة لحل الطالب -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2.5 mb-6" dir="ltr" id="ordinalsBadgeRow">
+          
+          <!-- a: 1st (متاح للحل) -->
+          <div onclick="selectOrdinalTarget('a', 5, this)" id="ordTarget-a" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">a</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">1st</span>
+            <span id="ordSlot-a" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- b: 2nd -->
+          <div onclick="selectOrdinalTarget('b', 1, this)" id="ordTarget-b" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">b</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">2nd</span>
+            <span id="ordSlot-b" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- c: 3rd -->
+          <div onclick="selectOrdinalTarget('c', 2, this)" id="ordTarget-c" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">c</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">3rd</span>
+            <span id="ordSlot-c" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- d: 4th -->
+          <div onclick="selectOrdinalTarget('d', 8, this)" id="ordTarget-d" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">d</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">4th</span>
+            <span id="ordSlot-d" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- e: 7th -->
+          <div onclick="selectOrdinalTarget('e', 3, this)" id="ordTarget-e" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">e</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">7th</span>
+            <span id="ordSlot-e" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- f: 13th -->
+          <div onclick="selectOrdinalTarget('f', 4, this)" id="ordTarget-f" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">f</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">13th</span>
+            <span id="ordSlot-f" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- g: 16th -->
+          <div onclick="selectOrdinalTarget('g', 6, this)" id="ordTarget-g" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">g</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">16th</span>
+            <span id="ordSlot-g" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+          <!-- h: 20th -->
+          <div onclick="selectOrdinalTarget('h', 7, this)" id="ordTarget-h" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
+            <span class="text-xs text-rose-600 font-black self-start">h</span>
+            <span class="en-font font-black text-xl text-slate-900 my-0.5">20th</span>
+            <span id="ordSlot-h" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
+          </div>
+
+        </div>
+
+        <!-- 8 Ordinal Words Buttons (1 to 8) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" dir="ltr" id="ordinalsWordsBank">
+          
+          <button onclick="pickOrdinalWord(1, 'second', this)" id="ordWord-1" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">1</span> second</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(2, 'third', this)" id="ordWord-2" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">2</span> third</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(3, 'seventh', this)" id="ordWord-3" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">3</span> seventh</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(4, 'thirteenth', this)" id="ordWord-4" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">4</span> thirteenth</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(5, 'first', this)" id="ordWord-5" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">5</span> first</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(6, 'sixteenth', this)" id="ordWord-6" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">6</span> sixteenth</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(7, 'twentieth', this)" id="ordWord-7" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">7</span> twentieth</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+          <button onclick="pickOrdinalWord(8, 'fourth', this)" id="ordWord-8" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
+            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">8</span> fourth</span>
+            <span class="text-xs text-slate-400">🔊</span>
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- =========================================================================
+           EXERCISE 4: LISTEN, PAINT, AND SAY
+           ========================================================================= -->
+      <section class="mb-6 p-4 sm:p-6 rounded-3xl bg-emerald-50/50 border-2 border-emerald-300 shadow-2xs">
+        
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4" dir="ltr">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-rose-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
+              4
+            </span>
+            <span class="text-xl">🎧🎨</span>
+            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
+              Listen, paint, and say.
+            </h2>
+          </div>
+          
+          <!-- Interactive Color Pipette Palette -->
+          <div class="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-2xl border border-slate-200 shadow-2xs">
+            <span class="text-xs font-bold text-slate-500 ml-1">اختر اللون:</span>
+            <div onclick="selectBrushColor('#86efac', this)" class="color-swatch active-swatch bg-emerald-300" title="أخضر فاتح"></div>
+            <div onclick="selectBrushColor('#38bdf8', this)" class="color-swatch bg-sky-400" title="أزرق سماوي"></div>
+            <div onclick="selectBrushColor('#fde047', this)" class="color-swatch bg-amber-300" title="أصفر"></div>
+            <div onclick="selectBrushColor('#f472b6', this)" class="color-swatch bg-pink-400" title="وردي"></div>
+            <div onclick="selectBrushColor('#c084fc', this)" class="color-swatch bg-purple-400" title="أرجواني"></div>
+            <div onclick="selectBrushColor('#fb923c', this)" class="color-swatch bg-orange-400" title="برتقالي"></div>
+          </div>
+        </div>
+
+        <p class="text-xs font-bold text-slate-500 mb-4" dir="rtl">
+          💡 انقر على أحد الألوان أعلاه ثم انقر على الدائرة لتلوينها وسماع نطق الكلمة باللغة الإنجليزية:
+        </p>
+
+        <!-- The 10 Paintable Circles -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2.5 sm:gap-3 text-center" dir="ltr" id="paintCirclesContainer">
+          
+          <!-- 1st -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'first')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #86efac;">
+              1st
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">first</span>
+          </div>
+
+          <!-- 2nd -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'second')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #38bdf8;">
+              2nd
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">second</span>
+          </div>
+
+          <!-- 3rd -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'third')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #fde047;">
+              3rd
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">third</span>
+          </div>
+
+          <!-- 4th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'fourth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #f472b6;">
+              4th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">fourth</span>
+          </div>
+
+          <!-- 10th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'tenth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #2dd4bf;">
+              10th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">tenth</span>
+          </div>
+
+          <!-- 12th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'twelfth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #c084fc;">
+              12th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">twelfth</span>
+          </div>
+
+          <!-- 13th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'thirteenth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #fb923c;">
+              13th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">thirteenth</span>
+          </div>
+
+          <!-- 16th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'sixteenth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #0284c7;">
+              16th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">sixteenth</span>
+          </div>
+
+          <!-- 18th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'eighteenth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #38bdf8;">
+              18th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">eighteenth</span>
+          </div>
+
+          <!-- 20th -->
+          <div class="flex flex-col items-center">
+            <button onclick="paintCircle(this, 'twentieth')" class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-white font-black text-sm en-font shadow-xs transition hover:scale-110 active:scale-95" style="background-color: #4ade80;">
+              20th
+            </button>
+            <span class="en-font font-bold text-xs text-slate-700 mt-1">twentieth</span>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Worksheet Bottom Footer (Matching original image bottom badge: W 4) -->
+      <footer class="pt-4 border-t-2 border-slate-100 flex items-center justify-between relative px-2 sm:px-4" dir="ltr">
+        
+        <!-- Bottom Left: Circular Workbook W Badge with Pink 4 Tag -->
+        <div class="flex items-center gap-1">
+          <div class="w-12 h-12 rounded-full bg-teal-700 text-white font-black text-xl flex items-center justify-center shadow-sm border-2 border-teal-500">
+            W
+          </div>
+          <div class="bg-rose-500 text-white font-black text-xs px-2.5 py-1 rounded-full shadow-2xs">
+            4
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2" dir="rtl">
+          <span class="text-xs font-bold text-slate-500">ورقة عمل الأستاذ ماجد السويهري • Unit 4</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="resetAllWorkbook()" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 font-black text-xs transition active:scale-95 flex items-center gap-1.5 shadow-2xs">
+            <span>🔄</span>
+            <span>إعادة تعيين الورقة</span>
+          </button>
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+            🖨️ طباعة
+          </button>
+        </div>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 transform translate-y-28 opacity-0">
+    <div class="bg-slate-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl border-2 border-sky-400 flex items-center gap-3 backdrop-blur-md">
+      <span id="toastIcon" class="text-2xl">✨</span>
+      <div>
+        <p id="toastTitle" class="text-sm font-black text-white"></p>
+        <p id="toastMsg" class="text-xs text-slate-300 font-medium"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       JAVASCRIPT LOGIC & AUDIO SYNTHESIS
+       ========================================================================= -->
+  <script>
+    /* =========================================================================
+       1. WEB AUDIO SYNTHESIZER (MUSIC & SFX)
+       ========================================================================= */
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playPop() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      }
+      playSuccess() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.001, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.18, now + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.28);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.3);
+        });
+      }
+      playError() {
+        if (this.muted) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [280, 210];
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+          gain.gain.setValueAtTime(0.15, now + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.12);
+          osc.stop(now + idx * 0.12 + 0.22);
+        });
+      }
+    }
+    const sfx = new SoundFX();
+
+    /* =========================================================================
+       2. CANADIAN / ENGLISH & ARABIC SPEECH SYNTHESIS ENGINE
+       ========================================================================= */
+    class SpeechEngine {
+      constructor() {
+        this.synth = window.speechSynthesis;
+        this.enVoice = null;
+        this.arVoice = null;
+        this.rate = 1.0;
+        this.initVoices();
+        if (this.synth && this.synth.onvoiceschanged !== undefined) {
+          this.synth.onvoiceschanged = () => this.initVoices();
+        }
+      }
+      initVoices() {
+        if (!this.synth) return;
+        const voices = this.synth.getVoices();
+        this.enVoice = voices.find(v => v.lang === 'en-CA' || v.lang.includes('CA') || (v.lang.startsWith('en') && v.name.toLowerCase().includes('canada')))
+          || voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('zira')))
+          || voices.find(v => v.lang.startsWith('en'))
+          || null;
+
+        this.arVoice = voices.find(v => v.lang && (v.lang.startsWith('ar') || v.lang.includes('AR'))) || null;
+      }
+      speakEnglish(text, onEnd = null) {
+        if (sfx.muted || !this.synth) { if (onEnd) onEnd(); return; }
+        this.synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        if (this.enVoice) utter.voice = this.enVoice;
+        utter.lang = 'en-CA';
+        utter.rate = this.rate;
+        utter.pitch = 1.05;
+        if (onEnd) {
+          utter.onend = onEnd;
+          utter.onerror = onEnd;
+        }
+        this.synth.speak(utter);
+      }
+      speakArabic(text, onEnd = null) {
+        if (sfx.muted || !this.synth) { if (onEnd) onEnd(); return; }
+        this.synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        if (this.arVoice) utter.voice = this.arVoice;
+        utter.lang = 'ar-SA';
+        utter.rate = 0.95;
+        if (onEnd) {
+          utter.onend = onEnd;
+          utter.onerror = onEnd;
+        }
+        this.synth.speak(utter);
+      }
+      stop() {
+        if (this.synth) this.synth.cancel();
+      }
+    }
+    const speaker = new SpeechEngine();
+
+    /* =========================================================================
+       3. GLOBAL SCORE & CONTROLS
+       ========================================================================= */
+    let totalScore = 0; // جميع الأسئلة غير مجابة وتبدأ النقاط من 0
+
+    function updateScoreDisplay() {
+      document.getElementById('scoreTracker').textContent = totalScore;
+    }
+
+    /* =========================================================================
+       4. EXERCISE 1: COMICS PLAYBACK & COMPREHENSION
+       ========================================================================= */
+    const COMIC_DIALOGUES = [
+      "How was your first vacation abroad?",
+      "It was brilliant!",
+      "Excellent!",
+      "..and exciting!",
+      "Let's climb that wall!",
+      "I'm surprised at you, Glo. That's a dangerous idea!",
+      "It's more dangerous than other games!",
+      "I'm afraid of heights!",
+      "It's a terrible game!",
+      "Can I go second?",
+      "Don't be naughty, Glo!",
+      "It's the fifth time. Let's play a different game!",
+      "Yes! Let's tell our stories!",
+      "Oh, no! Time for class!"
+    ];
+
+    let comicIndex = 0;
+    let isPlayingStory = false;
+
+    function speakBubble(el, text) {
+      sfx.playPop();
+      document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+      el.classList.add('is-speaking');
+      speaker.speakEnglish(text, () => {
+        el.classList.remove('is-speaking');
+      });
+    }
+
+    function playFullComicStory() {
+      sfx.playPop();
+      if (isPlayingStory) {
+        speaker.stop();
+        isPlayingStory = false;
+        document.getElementById('btnPlayAllStory').innerHTML = `<span>▶️</span><span>استمع للقصة كاملة بالترتيب</span>`;
+        document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+        return;
+      }
+
+      isPlayingStory = true;
+      comicIndex = 0;
+      document.getElementById('btnPlayAllStory').innerHTML = `<span>⏹️</span><span>إيقاف القراءة</span>`;
+      playNextComicDialogue();
+    }
+
+    function playNextComicDialogue() {
+      if (!isPlayingStory || comicIndex >= COMIC_DIALOGUES.length) {
+        isPlayingStory = false;
+        document.getElementById('btnPlayAllStory').innerHTML = `<span>▶️</span><span>استمع للقصة كاملة بالترتيب</span>`;
+        document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+        confetti({ particleCount: 30, spread: 60 });
+        showToast(true, "اكتملت قراءة القصة كاملة! 🌟", "يمكنك الآن الإجابة على الأسئلة في الأعلى.");
+        return;
+      }
+
+      const text = COMIC_DIALOGUES[comicIndex];
+      const bubbles = document.querySelectorAll('.speech-bubble');
+      bubbles.forEach(b => b.classList.remove('is-speaking'));
+      if (bubbles[comicIndex]) {
+        bubbles[comicIndex].classList.add('is-speaking');
+        bubbles[comicIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      comicIndex++;
+      speaker.speakEnglish(text, () => {
+        if (!isPlayingStory) return;
+        setTimeout(playNextComicDialogue, 400);
+      });
+    }
+
+    const ex1Solved = { 1: false, 2: false };
+
+    function checkEx1Question(qNum, chosenOpt, isCorrect, btnEl) {
+      if (ex1Solved[qNum]) return;
+      sfx.playPop();
+
+      const parent = btnEl.parentElement;
+      const blank = document.getElementById(`blank-q${qNum}`);
+
+      if (isCorrect) {
+        sfx.playSuccess();
+        ex1Solved[qNum] = true;
+        totalScore += 1;
+        updateScoreDisplay();
+
+        btnEl.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-left font-black text-xs sm:text-sm text-emerald-950 flex items-center gap-2 pop-success";
+        blank.textContent = btnEl.querySelector('span:last-child').textContent;
+        blank.className = "border-b-2 border-emerald-500 px-3 inline-block font-black text-emerald-700 pop-success";
+
+        confetti({ particleCount: 30, spread: 50 });
+        speaker.speakArabic("الإجابة صحيحة", () => {
+          speaker.speakEnglish(blank.textContent);
+        });
+
+        showToast(true, "أحسنت! إجابة صحيحة", `السؤال ${qNum}: الاختيار (${chosenOpt}) صحيح تماماً.`);
+      } else {
+        sfx.playError();
+        btnEl.classList.add('shake-anim', 'bg-rose-100', 'border-rose-400');
+        setTimeout(() => btnEl.classList.remove('shake-anim', 'bg-rose-100', 'border-rose-400'), 450);
+
+        speaker.speakArabic("إجابة خاطئة");
+        showToast(false, "حاول مرة أخرى!", "استمع للقصة جيداً وافحص الخيارات.");
+      }
+    }
+
+    /* =========================================================================
+       5. EXERCISE 2: ADJECTIVES MATCHING LOGIC
+       ========================================================================= */
+    let selectedAdj = null; // { id, word, correctLetter, el }
+    let selectedAdjPic = null; // { letter, word, id, el }
+    const adjMatchState = {}; // فارغة تماماً ليتسنى للطالب حل جميع الأسئلة بأنفسهم
+
+    function selectAdjectiveCard(id, word, correctLetter, el) {
+      if (adjMatchState[id]) {
+        sfx.playPop();
+        speaker.speakEnglish(word);
+        return;
+      }
+
+      sfx.playPop();
+      speaker.speakEnglish(word);
+
+      if (selectedAdj && selectedAdj.id === id) {
+        el.classList.remove('is-selected');
+        selectedAdj = null;
+        return;
+      }
+
+      document.querySelectorAll('#adjectivesList .match-item-card').forEach(c => c.classList.remove('is-selected'));
+      el.classList.add('is-selected');
+      selectedAdj = { id, word, correctLetter, el };
+
+      if (selectedAdjPic) evaluateAdjectivePair();
+    }
+
+    function selectAdjPicCard(letter, word, expectedId, el) {
+      if (Object.values(adjMatchState).includes(letter)) {
+        sfx.playPop();
+        speaker.speakEnglish(word);
+        return;
+      }
+
+      sfx.playPop();
+      speaker.speakEnglish(word);
+
+      if (selectedAdjPic && selectedAdjPic.letter === letter) {
+        el.classList.remove('is-selected');
+        selectedAdjPic = null;
+        return;
+      }
+
+      document.querySelectorAll('#adjPicsGrid .match-item-card').forEach(c => c.classList.remove('is-selected'));
+      el.classList.add('is-selected');
+      selectedAdjPic = { letter, word, expectedId, el };
+
+      if (selectedAdj) evaluateAdjectivePair();
+    }
+
+    function evaluateAdjectivePair() {
+      const isCorrect = (selectedAdj.correctLetter === selectedAdjPic.letter);
+
+      if (isCorrect) {
+        sfx.playSuccess();
+        totalScore += 1;
+        updateScoreDisplay();
+
+        adjMatchState[selectedAdj.id] = selectedAdjPic.letter;
+
+        // Fill slot
+        const slot = document.getElementById(`adjSlot-${selectedAdj.id}`);
+        slot.textContent = selectedAdjPic.letter;
+        slot.parentElement.className = "en-font font-black text-lg bg-emerald-100 px-3 py-0.5 rounded-xl border border-emerald-400 pop-success";
+
+        // Style cards
+        selectedAdj.el.classList.remove('is-selected');
+        selectedAdj.el.classList.add('is-matched', 'pop-success');
+
+        selectedAdjPic.el.classList.remove('is-selected');
+        selectedAdjPic.el.classList.add('is-matched', 'pop-success');
+
+        confetti({ particleCount: 30, spread: 55 });
+        speaker.speakArabic("الإجابة صحيحة", () => {
+          speaker.speakEnglish(selectedAdj.word);
+        });
+
+        showToast(true, "توصيل صحيح ممتاز!", `${selectedAdj.word} ➔ (${selectedAdjPic.letter})`);
+      } else {
+        sfx.playError();
+        selectedAdj.el.classList.add('shake-anim');
+        selectedAdjPic.el.classList.add('shake-anim');
+
+        const adjEl = selectedAdj.el;
+        const picEl = selectedAdjPic.el;
+        setTimeout(() => {
+          adjEl.classList.remove('shake-anim', 'is-selected');
+          picEl.classList.remove('shake-anim', 'is-selected');
+        }, 450);
+
+        speaker.speakArabic("إجابة خاطئة");
+        showToast(false, "حاول مرة أخرى!", "الصفحة لا تطابق هذه الصورة.");
+      }
+
+      selectedAdj = null;
+      selectedAdjPic = null;
+    }
+
+    /* =========================================================================
+       6. EXERCISE 3: ORDINAL NUMBERS MATCHING LOGIC
+       ========================================================================= */
+    let selectedOrdWord = null; // { num, word, el }
+    let selectedOrdTarget = null; // { letter, expectedNum, el }
+    const ordMatchState = {}; // فارغة ليتسنى للطالب حل كل الأرقام
+
+    function pickOrdinalWord(num, word, el) {
+      if (Object.values(ordMatchState).includes(num)) {
+        sfx.playPop();
+        speaker.speakEnglish(word);
+        return;
+      }
+
+      sfx.playPop();
+      speaker.speakEnglish(word);
+
+      if (selectedOrdWord && selectedOrdWord.num === num) {
+        el.classList.remove('is-selected');
+        selectedOrdWord = null;
+        return;
+      }
+
+      document.querySelectorAll('#ordinalsWordsBank .match-item-card').forEach(b => b.classList.remove('is-selected'));
+      el.classList.add('is-selected');
+      selectedOrdWord = { num, word, el };
+
+      if (selectedOrdTarget) evaluateOrdinalPair();
+    }
+
+    function selectOrdinalTarget(letter, expectedNum, el) {
+      if (ordMatchState[letter]) {
+        sfx.playPop();
+        return;
+      }
+
+      sfx.playPop();
+      if (selectedOrdTarget && selectedOrdTarget.letter === letter) {
+        el.classList.remove('is-selected');
+        selectedOrdTarget = null;
+        return;
+      }
+
+      document.querySelectorAll('#ordinalsBadgeRow > div').forEach(d => d.classList.remove('is-selected'));
+      el.classList.add('is-selected');
+      selectedOrdTarget = { letter, expectedNum, el };
+
+      if (selectedOrdWord) evaluateOrdinalPair();
+    }
+
+    function evaluateOrdinalPair() {
+      const isCorrect = (selectedOrdTarget.expectedNum === selectedOrdWord.num);
+
+      if (isCorrect) {
+        sfx.playSuccess();
+        totalScore += 1;
+        updateScoreDisplay();
+
+        ordMatchState[selectedOrdTarget.letter] = selectedOrdWord.num;
+
+        // Fill slot
+        const slot = document.getElementById(`ordSlot-${selectedOrdTarget.letter}`);
+        slot.textContent = selectedOrdWord.num;
+        slot.className = "w-7 h-7 rounded-lg bg-emerald-500 text-white font-black text-sm flex items-center justify-center pop-success";
+
+        // Style
+        selectedOrdTarget.el.className = "p-2.5 rounded-2xl bg-emerald-50 border-2 border-emerald-400 flex flex-col items-center justify-center text-center shadow-2xs pop-success";
+        selectedOrdWord.el.className = "match-item-card p-3 bg-emerald-50 border-2 border-emerald-400 flex items-center justify-between shadow-2xs pop-success opacity-80 pointer-events-none";
+
+        confetti({ particleCount: 30, spread: 50 });
+        speaker.speakArabic("الإجابة صحيحة", () => {
+          speaker.speakEnglish(selectedOrdWord.word);
+        });
+
+        showToast(true, "مطابقة رقم ترتيبي صحيحة!", `${selectedOrdWord.word} ➔ (${selectedOrdTarget.letter})`);
+      } else {
+        sfx.playError();
+        selectedOrdTarget.el.classList.add('shake-anim');
+        selectedOrdWord.el.classList.add('shake-anim');
+
+        const tEl = selectedOrdTarget.el;
+        const wEl = selectedOrdWord.el;
+        setTimeout(() => {
+          tEl.classList.remove('shake-anim', 'is-selected');
+          wEl.classList.remove('shake-anim', 'is-selected');
+        }, 450);
+
+        speaker.speakArabic("إجابة خاطئة");
+        showToast(false, "حاول مرة أخرى!", "الرقم لا يطابق هذه الكلمة الترتيبية.");
+      }
+
+      selectedOrdWord = null;
+      selectedOrdTarget = null;
+    }
+
+    /* =========================================================================
+       7. EXERCISE 4: PAINT STATION & PRONUNCIATION
+       ========================================================================= */
+    let activeBrushColor = '#86efac';
+
+    function selectBrushColor(colorHex, el) {
+      sfx.playPop();
+      activeBrushColor = colorHex;
+      document.querySelectorAll('.color-swatch').forEach(c => c.classList.remove('active-swatch'));
+      el.classList.add('active-swatch');
+      showToast(true, "تم اختيار اللون 🎨", "انقر الآن على أي دائرة لتلوينها وسماع نطقها");
+    }
+
+    function paintCircle(btnEl, word) {
+      sfx.playPop();
+      btnEl.style.backgroundColor = activeBrushColor;
+      btnEl.classList.add('pop-success');
+      setTimeout(() => btnEl.classList.remove('pop-success'), 350);
+
+      speaker.speakEnglish(word);
+      showToast(true, `تم التلوين بنجاح! 🎨`, `${word}`);
+    }
+
+    /* =========================================================================
+       8. GENERAL CONTROLS, AUDIO SPEED, MUTE, TRANSLATIONS, AND RESET
+       ========================================================================= */
+    function setAudioSpeed(val) {
+      sfx.playPop();
+      speaker.rate = val;
+      if (val === 0.85) {
+        document.getElementById('speedSlow').className = "px-2.5 py-0.5 rounded-xl bg-sky-600 text-white font-black shadow-xs transition";
+        document.getElementById('speedNormal').className = "px-2 py-0.5 rounded-xl font-bold text-slate-600 hover:bg-white transition";
+      } else {
+        document.getElementById('speedNormal').className = "px-2.5 py-0.5 rounded-xl bg-sky-600 text-white font-black shadow-xs transition";
+        document.getElementById('speedSlow').className = "px-2 py-0.5 rounded-xl font-bold text-slate-600 hover:bg-white transition";
+      }
+      showToast(true, `سرعة النطق: ${val}x`, "تم ضبط سرعة الصوت بنجاح");
+    }
+
+    function toggleAudioMute() {
+      sfx.playPop();
+      sfx.muted = !sfx.muted;
+      document.getElementById('muteIcon').textContent = sfx.muted ? '🔇' : '🔊';
+      if (sfx.muted) {
+        speaker.stop();
+        showToast(false, "تم كتم الصوت 🔇", "انقر مجدداً لتفعيل الصوت");
+      } else {
+        showToast(true, "تم تفعيل الصوت 🔊", "استمتع بالنطق الإنجليزي والاستجابة الصوتية");
+      }
+    }
+
+    let areTransVisible = true;
+    function toggleTranslations() {
+      sfx.playPop();
+      areTransVisible = !areTransVisible;
+      document.querySelectorAll('.arabic-trans').forEach(el => {
+        el.style.display = areTransVisible ? 'inline-block' : 'none';
+      });
+      document.getElementById('transBtnText').textContent = areTransVisible ? "إخفاء الترجمة" : "إظهار الترجمة";
+      showToast(true, areTransVisible ? "تم إظهار الترجمة العربية." : "تم إخفاء الترجمة العربية لتحدي النفس.");
+    }
+
+    function resetAllWorkbook() {
+      sfx.playPop();
+      
+      // Reset Ex 1
+      ex1Solved[1] = false;
+      ex1Solved[2] = false;
+      document.querySelectorAll('#qBox-1 .quiz-option-btn, #qBox-2 .quiz-option-btn').forEach(b => {
+        b.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2";
+      });
+
+      // Reset Ex 2 (جميع الأسئلة من 1 إلى 8 دون استثناء وبالمقاس الجديد المصغر)
+      for (let i = 1; i <= 8; i++) {
+        delete adjMatchState[i];
+        const slot = document.getElementById(`adjSlot-${i}`);
+        if (slot) slot.textContent = ' ';
+        const card = document.getElementById(`adjCard-${i}`);
+        if (card) card.className = "match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs";
+      }
+      document.querySelectorAll('#adjPicsGrid .match-item-card').forEach(p => {
+        p.className = "match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs";
+      });
+
+      // Reset Ex 3 (جميع الحروف a إلى h)
+      ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].forEach(letter => {
+        delete ordMatchState[letter];
+        const slot = document.getElementById(`ordSlot-${letter}`);
+        if (slot) {
+          slot.textContent = '__';
+          slot.className = "w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center";
+        }
+        const target = document.getElementById(`ordTarget-${letter}`);
+        if (target) target.className = "p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition";
+      });
+      for (let w = 1; w <= 8; w++) {
+        const wBtn = document.getElementById(`ordWord-${w}`);
+        if (wBtn) wBtn.className = "match-item-card p-3 bg-white flex items-center justify-between shadow-2xs";
+      }
+
+      totalScore = 0;
+      updateScoreDisplay();
+      showToast(true, "تمت إعادة تعيين ورقة العمل بنجاح 🔄");
+    }
+
+    function showToast(isSuccess, title, message) {
+      const toast = document.getElementById('toastNotification');
+      if (!toast) return;
+
+      const titleEl = document.getElementById('toastTitle');
+      const msgEl = document.getElementById('toastMsg');
+      const iconEl = document.getElementById('toastIcon');
+
+      iconEl.textContent = isSuccess ? "✅" : "⚠️";
+      titleEl.textContent = title;
+      msgEl.textContent = message;
+
+      toast.classList.remove('translate-y-28', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-28', 'opacity-0');
+      }, 2600);
+    }
+
+    window.onload = function() {
+      updateScoreDisplay();
+    };
+  </script>
+</body>
+</html>
