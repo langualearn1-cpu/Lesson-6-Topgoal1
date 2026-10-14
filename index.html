@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Unit 4 The All Sorts • المعلم ماجد السويهري • درس وتطبيقات تفاعلية</title>
+  <title>Unit 4 The All Sorts • المعلم ماجد السويهري • متزامن صوتياً ومترجم بالعربية</title>
 
   <!-- Tailwind CSS & Canvas Confetti -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -62,7 +62,7 @@
       box-shadow: 0 12px 24px -6px rgba(56, 189, 248, 0.2);
     }
 
-    /* Speech Bubble Styling */
+    /* Speech Bubble Styling with Translation */
     .speech-bubble {
       position: relative;
       background: #ffffff;
@@ -73,7 +73,7 @@
       transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .speech-bubble:hover {
-      transform: scale(1.04);
+      transform: scale(1.03);
       border-color: #0284c7;
       background: #f0f9ff;
     }
@@ -109,7 +109,7 @@
       color: #065f46 !important;
     }
 
-    /* Animation effects */
+    /* Shake & Success animations */
     @keyframes shakeCard {
       0%, 100% { transform: translateX(0); }
       20%, 60% { transform: translateX(-6px); }
@@ -162,8 +162,8 @@
           🌟
         </span>
         <div>
-          <h1 class="text-xs sm:text-sm font-black text-slate-800 leading-tight">Unit 4: The All Sorts • درس وتمارين تفاعلية</h1>
-          <p class="text-[11px] font-bold text-sky-700">إشراف: الأستاذ ماجد السويهري • نطق إنجليزي فصيح 🇨🇦</p>
+          <h1 class="text-xs sm:text-sm font-black text-slate-800 leading-tight">Unit 4: The All Sorts • درس وتمارين تفاعلية متزامنة</h1>
+          <p class="text-[11px] font-bold text-sky-700">إشراف: الأستاذ ماجد السويهري • مترجم بالكامل للعربية 🌐 مع نطق كندي 🇨🇦</p>
         </div>
       </div>
 
@@ -222,87 +222,122 @@
            ========================================================================= -->
       <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-amber-50/50 border-2 border-amber-300 shadow-2xs">
         
-        <!-- Exercise Title Header -->
+        <!-- Exercise Title Header with Translation -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4" dir="ltr">
           <div class="flex items-center gap-2">
             <span class="w-8 h-8 rounded-full bg-amber-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
               1
             </span>
             <span class="text-xl">🎧</span>
-            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
-              Listen, read, and answer.
-            </h2>
+            <div>
+              <h2 class="en-font font-black text-lg sm:text-xl text-slate-900 leading-tight">
+                Listen, read, and answer.
+              </h2>
+              <span class="arabic-trans text-xs font-bold text-amber-800" dir="rtl">استمع، اقرأ القصة، ثم أجب عن الأسئلة</span>
+            </div>
           </div>
           <button onclick="playFullComicStory()" id="btnPlayAllStory" class="px-3.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 font-black text-xs transition flex items-center gap-1.5 shadow-2xs">
             <span>▶️</span>
-            <span>استمع للقصة كاملة بالترتيب</span>
+            <span>استمع للقصة كاملة مع التظليل</span>
           </button>
         </div>
 
-        <!-- 2 Questions (1 & 2) in 2 Columns -->
+        <!-- 2 Questions (1 & 2) in 2 Columns with Arabic Translation -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" dir="ltr">
           
           <!-- Question 1 -->
           <div class="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-2xs" id="qBox-1">
-            <div class="flex items-center gap-2 mb-2.5">
-              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font">1</span>
-              <p class="en-font font-black text-base text-slate-900">
-                The All Sorts are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q1">_________</span>
-              </p>
+            <div class="flex items-start gap-2 mb-2.5">
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font shrink-0 mt-0.5">1</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-1.5">
+                  <p class="en-font font-black text-base text-slate-900 leading-snug">
+                    The All Sorts are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q1">_________</span>
+                  </p>
+                  <button onclick="readQuestionSentence(1)" class="p-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs shrink-0 transition" title="استمع للجملة كاملة">🔊</button>
+                </div>
+                <span class="arabic-trans text-xs font-bold text-slate-400 block mt-0.5" dir="rtl">كائنات "أول سورتس" موجودة في...</span>
+              </div>
             </div>
-            <div class="space-y-1.5">
-              <button onclick="checkEx1Question(1, 'a', true, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">a</span>
-                <span>on the playground.</span>
+            <div class="space-y-2">
+              <button onclick="checkEx1Question(1, 'a', true, this, 'on the playground')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">a</span>
+                  <span>on the playground.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">في فناء اللعب / الحديقة</span>
               </button>
-              <button onclick="checkEx1Question(1, 'b', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">b</span>
-                <span>in the classroom.</span>
+              <button onclick="checkEx1Question(1, 'b', false, this, 'in the classroom')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">b</span>
+                  <span>in the classroom.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">في الفصل الدراسي</span>
               </button>
-              <button onclick="checkEx1Question(1, 'c', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">c</span>
-                <span>at their house.</span>
+              <button onclick="checkEx1Question(1, 'c', false, this, 'at their house')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">c</span>
+                  <span>at their house.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">في منزلهم</span>
               </button>
             </div>
           </div>
 
           <!-- Question 2 -->
           <div class="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-2xs" id="qBox-2">
-            <div class="flex items-center gap-2 mb-2.5">
-              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font">2</span>
-              <p class="en-font font-black text-base text-slate-900">
-                They are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q2">_________</span>
-              </p>
+            <div class="flex items-start gap-2 mb-2.5">
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-black text-xs flex items-center justify-center en-font shrink-0 mt-0.5">2</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-1.5">
+                  <p class="en-font font-black text-base text-slate-900 leading-snug">
+                    They are <span class="border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700" id="blank-q2">_________</span>
+                  </p>
+                  <button onclick="readQuestionSentence(2)" class="p-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs shrink-0 transition" title="استمع للجملة كاملة">🔊</button>
+                </div>
+                <span class="arabic-trans text-xs font-bold text-slate-400 block mt-0.5" dir="rtl">هم يقومون بـ...</span>
+              </div>
             </div>
-            <div class="space-y-1.5">
-              <button onclick="checkEx1Question(2, 'a', true, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">a</span>
-                <span>playing a game.</span>
+            <div class="space-y-2">
+              <button onclick="checkEx1Question(2, 'a', true, this, 'playing a game')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">a</span>
+                  <span>playing a game.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">لعب لعبة</span>
               </button>
-              <button onclick="checkEx1Question(2, 'b', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">b</span>
-                <span>having lunch.</span>
+              <button onclick="checkEx1Question(2, 'b', false, this, 'having lunch')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">b</span>
+                  <span>having lunch.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">تناول الغداء</span>
               </button>
-              <button onclick="checkEx1Question(2, 'c', false, this)" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2 transition">
-                <span class="text-rose-600 font-black en-font">c</span>
-                <span>talking to students.</span>
+              <button onclick="checkEx1Question(2, 'c', false, this, 'talking to students')" class="quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between transition">
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-600 font-black en-font">c</span>
+                  <span>talking to students.</span>
+                </div>
+                <span class="arabic-trans text-[11px] font-bold text-slate-400" dir="rtl">التحدث مع الطلاب</span>
               </button>
             </div>
           </div>
 
         </div>
 
-        <!-- The 4 Cartoon Comic Story Panels (The All Sorts) -->
+        <!-- The 4 Cartoon Comic Story Panels (The All Sorts) with Bilingual Translations -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" dir="ltr">
           
           <!-- Panel 1 -->
-          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-sky-50/30">
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[195px] bg-sky-50/30">
             <div class="flex items-start justify-between gap-2">
-              <div onclick="speakBubble(this, 'How was your first vacation abroad?')" class="speech-bubble text-xs font-bold text-slate-800">
-                How was your <span class="text-blue-600 font-black">first</span> vacation abroad? 💬
+              <div onclick="speakBubble(this)" data-english="How was your first vacation abroad?" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>How was your <span class="text-blue-600 font-black">first</span> vacation abroad? 💬</div>
+                <div class="arabic-trans text-[10px] text-sky-800 font-bold mt-0.5" dir="rtl">كيف كانت إجازتك الأولى خارج البلاد؟</div>
               </div>
-              <div onclick="speakBubble(this, 'Excellent!')" class="speech-bubble text-xs font-bold text-slate-800">
-                Excellent! 💬
+              <div onclick="speakBubble(this)" data-english="It was brilliant!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>It was <span class="text-emerald-600 font-black">brilliant</span>! 💬</div>
+                <div class="arabic-trans text-[10px] text-emerald-800 font-bold mt-0.5" dir="rtl">لقد كانت رائعة ومذهلة!</div>
               </div>
             </div>
             
@@ -313,23 +348,27 @@
             </div>
 
             <div class="flex items-center justify-between gap-2">
-              <div onclick="speakBubble(this, 'It was brilliant!')" class="speech-bubble text-xs font-bold text-slate-800">
-                It was <span class="text-emerald-600 font-black">brilliant</span>! 💬
+              <div onclick="speakBubble(this)" data-english="Excellent!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>Excellent! 💬</div>
+                <div class="arabic-trans text-[10px] text-sky-800 font-bold mt-0.5" dir="rtl">ممتازة!</div>
               </div>
-              <div onclick="speakBubble(this, '..and exciting!')" class="speech-bubble text-xs font-bold text-slate-800">
-                ..and <span class="text-purple-600 font-black">exciting</span>! 💬
+              <div onclick="speakBubble(this)" data-english="..and exciting!" class="speech-bubble text-xs font-bold text-slate-800 text-right">
+                <div>..and <span class="text-purple-600 font-black">exciting</span>! 💬</div>
+                <div class="arabic-trans text-[10px] text-purple-800 font-bold mt-0.5" dir="rtl">..ومشوقة ومثيرة للحماس!</div>
               </div>
             </div>
           </div>
 
           <!-- Panel 2 -->
-          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-amber-50/30">
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[195px] bg-amber-50/30">
             <div class="flex items-start justify-between gap-2">
-              <div onclick="speakBubble(this, 'Let\'s climb that wall!')" class="speech-bubble text-xs font-bold text-slate-800">
-                Let's climb that wall! 💬
+              <div onclick="speakBubble(this)" data-english="Let's climb that wall!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>Let's climb that wall! 💬</div>
+                <div class="arabic-trans text-[10px] text-amber-800 font-bold mt-0.5" dir="rtl">هيا بنا نتسلق ذلك الجدار!</div>
               </div>
-              <div onclick="speakBubble(this, 'I\'m surprised at you, Glo. That\'s a dangerous idea!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[210px]">
-                I'm <span class="text-sky-600 font-black">surprised</span> at you, Glo. That's a <span class="text-rose-600 font-black">dangerous</span> idea! 💬
+              <div onclick="speakBubble(this)" data-english="I'm surprised at you, Glo. That's a dangerous idea!" class="speech-bubble text-xs font-bold text-slate-800 max-w-[215px]">
+                <div>I'm <span class="text-sky-600 font-black">surprised</span> at you, Glo. That's a <span class="text-rose-600 font-black">dangerous</span> idea! 💬</div>
+                <div class="arabic-trans text-[10px] text-rose-800 font-bold mt-0.5" dir="rtl">أنا مندهش منك يا غلو، إنها فكرة خطيرة!</div>
               </div>
             </div>
 
@@ -339,17 +378,19 @@
               <span title="Red friend">🔴</span>
             </div>
 
-            <span class="text-[10px] text-slate-400 font-bold text-center">💡 انقر على أي فقاعة لسماع نطقها فوراً</span>
+            <span class="text-[10px] text-slate-400 font-bold text-center" dir="rtl">💡 انقر على أي فقاعة لسماع نطقها الإنجليزي فوراً</span>
           </div>
 
           <!-- Panel 3 -->
-          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-rose-50/30">
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[195px] bg-rose-50/30">
             <div class="flex items-start justify-between gap-2">
-              <div onclick="speakBubble(this, 'It\'s more dangerous than other games!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[140px]">
-                It's more <span class="text-rose-600 font-black">dangerous</span> than other games! 💬
+              <div onclick="speakBubble(this)" data-english="It's more dangerous than other games!" class="speech-bubble text-xs font-bold text-slate-800 max-w-[150px]">
+                <div>It's more <span class="text-rose-600 font-black">dangerous</span> than other games! 💬</div>
+                <div class="arabic-trans text-[10px] text-rose-800 font-bold mt-0.5" dir="rtl">أكثر خطورة من الألعاب الأخرى!</div>
               </div>
-              <div onclick="speakBubble(this, 'It\'s a terrible game!')" class="speech-bubble text-xs font-bold text-slate-800">
-                It's a <span class="text-amber-600 font-black">terrible</span> game! 💬
+              <div onclick="speakBubble(this)" data-english="It's a terrible game!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>It's a <span class="text-amber-600 font-black">terrible</span> game! 💬</div>
+                <div class="arabic-trans text-[10px] text-amber-800 font-bold mt-0.5" dir="rtl">إنها لعبة فظيعة وسيئة جداً!</div>
               </div>
             </div>
 
@@ -359,27 +400,32 @@
               <span title="Glo naughty">😈</span>
             </div>
 
-            <div class="flex items-center justify-between gap-1 flex-wrap">
-              <div onclick="speakBubble(this, 'I\'m afraid of heights!')" class="speech-bubble text-xs font-bold text-slate-800">
-                I'm <span class="text-sky-600 font-black">afraid</span> of heights! 💬
+            <div class="flex items-center justify-between gap-1.5 flex-wrap">
+              <div onclick="speakBubble(this)" data-english="I'm afraid of heights!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>I'm <span class="text-sky-600 font-black">afraid</span> of heights! 💬</div>
+                <div class="arabic-trans text-[10px] text-sky-800 font-bold mt-0.5" dir="rtl">أنا أخاف من المرتفعات!</div>
               </div>
-              <div onclick="speakBubble(this, 'Can I go second?')" class="speech-bubble text-xs font-bold text-slate-800">
-                Can I go <span class="text-indigo-600 font-black">second</span>? 💬
+              <div onclick="speakBubble(this)" data-english="Can I go second?" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>Can I go <span class="text-indigo-600 font-black">second</span>? 💬</div>
+                <div class="arabic-trans text-[10px] text-indigo-800 font-bold mt-0.5" dir="rtl">هل يمكنني الصعود ثانياً؟</div>
               </div>
-              <div onclick="speakBubble(this, 'Don\'t be naughty, Glo!')" class="speech-bubble text-xs font-bold text-slate-800">
-                Don't be <span class="text-emerald-600 font-black">naughty</span>, Glo! 💬
+              <div onclick="speakBubble(this)" data-english="Don't be naughty, Glo!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>Don't be <span class="text-emerald-600 font-black">naughty</span>, Glo! 💬</div>
+                <div class="arabic-trans text-[10px] text-emerald-800 font-bold mt-0.5" dir="rtl">لا تكن شقياً ومشاكساً يا غلو!</div>
               </div>
             </div>
           </div>
 
           <!-- Panel 4 -->
-          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[175px] bg-emerald-50/30">
+          <div class="comic-panel p-3.5 flex flex-col justify-between min-h-[195px] bg-emerald-50/30">
             <div class="flex items-start justify-between gap-2">
-              <div onclick="speakBubble(this, 'It\'s the fifth time. Let\'s play a different game!')" class="speech-bubble text-xs font-bold text-slate-800 max-w-[190px]">
-                It's the <span class="text-sky-600 font-black">fifth</span> time. Let's play a <span class="text-indigo-600 font-black">different</span> game! 💬
+              <div onclick="speakBubble(this)" data-english="It's the fifth time. Let's play a different game!" class="speech-bubble text-xs font-bold text-slate-800 max-w-[200px]">
+                <div>It's the <span class="text-sky-600 font-black">fifth</span> time. Let's play a <span class="text-indigo-600 font-black">different</span> game! 💬</div>
+                <div class="arabic-trans text-[10px] text-indigo-800 font-bold mt-0.5" dir="rtl">هذه المرة الخامسة، هيا نلعب لعبة مختلفة!</div>
               </div>
-              <div onclick="speakBubble(this, 'Yes! Let\'s tell our stories!')" class="speech-bubble text-xs font-bold text-slate-800">
-                Yes! Let's tell our stories! 💬
+              <div onclick="speakBubble(this)" data-english="Yes! Let's tell our stories!" class="speech-bubble text-xs font-bold text-slate-800">
+                <div>Yes! Let's tell our stories! 💬</div>
+                <div class="arabic-trans text-[10px] text-emerald-800 font-bold mt-0.5" dir="rtl">نعم! هيا نروي قصصنا!</div>
               </div>
             </div>
 
@@ -389,8 +435,9 @@
               <span title="Creature">🫐</span>
             </div>
 
-            <div onclick="speakBubble(this, 'Oh, no! Time for class!')" class="speech-bubble text-xs font-bold text-slate-800 self-center">
-              Oh, no! Time for class! 🔔💬
+            <div onclick="speakBubble(this)" data-english="Oh, no! Time for class!" class="speech-bubble text-xs font-bold text-slate-800 self-center text-center">
+              <div>Oh, no! Time for class! 🔔💬</div>
+              <div class="arabic-trans text-[10px] text-rose-700 font-bold mt-0.5" dir="rtl">أوه لا! لقد حان وقت الحصة!</div>
             </div>
           </div>
 
@@ -399,7 +446,7 @@
       </section>
 
       <!-- =========================================================================
-           EXERCISE 2: READ, LOOK, AND MATCH (THE 8 ADJECTIVES - NONE PRE-ANSWERED)
+           EXERCISE 2: READ, LOOK, AND MATCH (THE 8 ADJECTIVES + TRANSLATIONS)
            ========================================================================= -->
       <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-sky-50/50 border-2 border-sky-300 shadow-2xs">
         
@@ -409,27 +456,32 @@
               2
             </span>
             <span class="text-xl">🎧</span>
-            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
-              Read, look, and match. Then listen and say.
-            </h2>
+            <div>
+              <h2 class="en-font font-black text-lg sm:text-xl text-slate-900 leading-tight">
+                Read, look, and match. Then listen and say.
+              </h2>
+              <span class="arabic-trans text-xs font-bold text-sky-800" dir="rtl">اقرأ الصفات، انظر للصور وطابقها، ثم استمع وردد</span>
+            </div>
           </div>
           <span class="text-xs font-bold text-sky-900 bg-sky-100 px-3 py-1 rounded-full border border-sky-200" dir="rtl">
-            اضغط على الكلمة ثم على صورتها لتوصيلها وحل السؤال 💡
+            اضغط على الكلمة ثم صورتها لتوصيلها وحل السؤال 💡
           </span>
         </div>
 
         <!-- 8 Adjectives & 8 Pictures in Parallel Columns -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" dir="ltr">
           
-          <!-- LEFT COLUMN: The 8 Adjectives -->
+          <!-- LEFT COLUMN: The 8 Adjectives with Embedded Arabic Translation -->
           <div class="flex flex-col gap-3" id="adjectivesList">
             
-            <!-- 1 afraid (غير مجاب - متاح لحل الطالب) -->
+            <!-- 1 afraid -->
             <div onclick="selectAdjectiveCard(1, 'afraid', 'b', this)" id="adjCard-1" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">1</span> afraid
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">خائف / مرعوب</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">1</span> afraid
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">خائف / مرعوب</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-1" class="text-sky-700 font-black px-1"> </span>
@@ -438,10 +490,12 @@
 
             <!-- 2 brilliant -->
             <div onclick="selectAdjectiveCard(2, 'brilliant', 'f', this)" id="adjCard-2" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">2</span> brilliant
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">رائع / عبقري</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">2</span> brilliant
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">رائع / عبقري</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-2" class="text-sky-700 font-black px-1"> </span>
@@ -450,10 +504,12 @@
 
             <!-- 3 dangerous -->
             <div onclick="selectAdjectiveCard(3, 'dangerous', 'g', this)" id="adjCard-3" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">3</span> dangerous
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">خطير</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">3</span> dangerous
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">خطير</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-3" class="text-sky-700 font-black px-1"> </span>
@@ -462,10 +518,12 @@
 
             <!-- 4 different -->
             <div onclick="selectAdjectiveCard(4, 'different', 'a', this)" id="adjCard-4" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">4</span> different
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">مختلف</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">4</span> different
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">مختلف</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-4" class="text-sky-700 font-black px-1"> </span>
@@ -474,10 +532,12 @@
 
             <!-- 5 exciting -->
             <div onclick="selectAdjectiveCard(5, 'exciting', 'c', this)" id="adjCard-5" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">5</span> exciting
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">مثير / مشوق</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">5</span> exciting
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">مثير / مشوق</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-5" class="text-sky-700 font-black px-1"> </span>
@@ -486,10 +546,12 @@
 
             <!-- 6 naughty -->
             <div onclick="selectAdjectiveCard(6, 'naughty', 'e', this)" id="adjCard-6" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">6</span> naughty
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">شقي / مشاغب</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">6</span> naughty
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">شقي / مشاغب</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-6" class="text-sky-700 font-black px-1"> </span>
@@ -498,10 +560,12 @@
 
             <!-- 7 terrible -->
             <div onclick="selectAdjectiveCard(7, 'terrible', 'd', this)" id="adjCard-7" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">7</span> terrible
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">فظيع / سيء جداً</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">7</span> terrible
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">فظيع / سيء جداً</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-7" class="text-sky-700 font-black px-1"> </span>
@@ -510,10 +574,12 @@
 
             <!-- 8 surprised -->
             <div onclick="selectAdjectiveCard(8, 'surprised', 'h', this)" id="adjCard-8" class="match-item-card p-3 sm:p-3.5 bg-white flex items-center justify-between shadow-2xs">
-              <span class="en-font font-black text-lg sm:text-xl text-slate-800">
-                <span class="text-rose-600">8</span> surprised
-              </span>
-              <span class="arabic-trans text-xs font-bold text-slate-400" dir="rtl">متفاجئ / مندهش</span>
+              <div class="flex items-center gap-2.5">
+                <span class="en-font font-black text-lg sm:text-xl text-slate-800">
+                  <span class="text-rose-600">8</span> surprised
+                </span>
+                <span class="arabic-trans text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200" dir="rtl">متفاجئ / مندهش</span>
+              </div>
               <div class="en-font font-black text-lg bg-sky-50 px-3 py-0.5 rounded-xl border border-sky-200">
                 <span class="text-slate-400">__</span>
                 <span id="adjSlot-8" class="text-sky-700 font-black px-1"> </span>
@@ -522,7 +588,7 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: The 8 Picture Cards (a to h) - حجم متناسق ومريح بدون زيادة -->
+          <!-- RIGHT COLUMN: The 8 Picture Cards (a to h) - حجم متناسق ومريح مع الترجمة -->
           <div class="grid grid-cols-2 gap-2.5 sm:gap-3" id="adjPicsGrid">
             
             <!-- a: Two different shirts -->
@@ -538,16 +604,22 @@
                   <polygon points="58,26 60,31 65,31 61,34 63,39 58,36 53,39 55,34 51,31 56,31" fill="#facc15"/>
                 </svg>
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">two different shirts</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">two different shirts</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">قميصان مختلفان</span>
+              </div>
             </div>
 
-            <!-- b: Afraid girl (غير مجابة - بطاقة تفاعلية لحل الطالب) -->
+            <!-- b: Afraid girl -->
             <div onclick="selectAdjPicCard('b', 'afraid', 1, this)" id="adjPic-b" class="match-item-card min-h-[105px] sm:min-h-[115px] p-2.5 sm:p-3 bg-white hover:border-sky-400 flex flex-col items-center justify-between text-center shadow-2xs">
               <span class="en-font font-black text-base sm:text-lg text-rose-600 self-start">b</span>
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 😨
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">afraid</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">afraid girl</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">فتاة خائفة</span>
+              </div>
             </div>
 
             <!-- c: Exciting boy jumping -->
@@ -556,7 +628,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 🕺🎉
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">jumping excitedly</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">jumping excitedly</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">يقفز بحماس وتشويق</span>
+              </div>
             </div>
 
             <!-- d: Thumbs down (Terrible) -->
@@ -565,7 +640,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 👎
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">terrible (bad)</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">terrible (bad)</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">فظيع / سيء</span>
+              </div>
             </div>
 
             <!-- e: Naughty spilled bowl -->
@@ -574,7 +652,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 🥣💥
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">naughty action</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">naughty action</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">تصرف مشاغب / شقي</span>
+              </div>
             </div>
 
             <!-- f: Brilliant smart thinking -->
@@ -583,7 +664,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 💡🧠
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">brilliant idea</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">brilliant idea</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">فكرة عبقرية رائعة</span>
+              </div>
             </div>
 
             <!-- g: Danger warning triangle -->
@@ -592,7 +676,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 ⚠️
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">dangerous</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">dangerous</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">خطر / تحذير</span>
+              </div>
             </div>
 
             <!-- h: Surprised girl -->
@@ -601,7 +688,10 @@
               <div class="w-12 h-10 sm:w-14 sm:h-12 flex items-center justify-center my-0.5 text-3xl sm:text-4xl drop-shadow-xs">
                 😲
               </div>
-              <span class="text-[11px] sm:text-xs font-bold text-slate-600">surprised</span>
+              <div class="text-center">
+                <span class="text-[11px] sm:text-xs font-bold text-slate-700 block leading-tight">surprised</span>
+                <span class="arabic-trans text-[10px] font-bold text-sky-700" dir="rtl">متفاجئ / مندهش</span>
+              </div>
             </div>
 
           </div>
@@ -611,7 +701,7 @@
       </section>
 
       <!-- =========================================================================
-           EXERCISE 3: LOOK, READ, AND MATCH (ORDINALS - ALL BLANKS OPEN)
+           EXERCISE 3: LOOK, READ, AND MATCH (ORDINALS - ALL BLANKS OPEN + TRANSLATION)
            ========================================================================= -->
       <section class="mb-8 p-4 sm:p-6 rounded-3xl bg-purple-50/50 border-2 border-purple-300 shadow-2xs">
         
@@ -620,9 +710,12 @@
             <span class="w-8 h-8 rounded-full bg-amber-500 text-white font-black text-base flex items-center justify-center shrink-0 shadow-2xs en-font">
               3
             </span>
-            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
-              Look, read, and match.
-            </h2>
+            <div>
+              <h2 class="en-font font-black text-lg sm:text-xl text-slate-900 leading-tight">
+                Look, read, and match.
+              </h2>
+              <span class="arabic-trans text-xs font-bold text-purple-900" dir="rtl">انظر، اقرأ، وطابق الأعداد الترتيبية برموزها</span>
+            </div>
           </div>
           <span class="text-xs font-bold text-purple-900 bg-purple-100 px-3 py-1 rounded-full border border-purple-200" dir="rtl">
             انقر على الكلمة بالأسفل ثم انقر على الرمز الترتيبي المناسب بالأعلى
@@ -632,10 +725,11 @@
         <!-- Row of 8 Ordinal Symbol Badges (a to h) - جميعها فارغة ومتاحة لحل الطالب -->
         <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2.5 mb-6" dir="ltr" id="ordinalsBadgeRow">
           
-          <!-- a: 1st (متاح للحل) -->
+          <!-- a: 1st -->
           <div onclick="selectOrdinalTarget('a', 5, this)" id="ordTarget-a" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">a</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">1st</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">الأول</span>
             <span id="ordSlot-a" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -643,6 +737,7 @@
           <div onclick="selectOrdinalTarget('b', 1, this)" id="ordTarget-b" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">b</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">2nd</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">الثاني</span>
             <span id="ordSlot-b" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -650,6 +745,7 @@
           <div onclick="selectOrdinalTarget('c', 2, this)" id="ordTarget-c" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">c</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">3rd</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">الثالث</span>
             <span id="ordSlot-c" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -657,6 +753,7 @@
           <div onclick="selectOrdinalTarget('d', 8, this)" id="ordTarget-d" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">d</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">4th</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">الرابع</span>
             <span id="ordSlot-d" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -664,6 +761,7 @@
           <div onclick="selectOrdinalTarget('e', 3, this)" id="ordTarget-e" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">e</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">7th</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">السابع</span>
             <span id="ordSlot-e" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -671,6 +769,7 @@
           <div onclick="selectOrdinalTarget('f', 4, this)" id="ordTarget-f" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">f</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">13th</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">الثالث عشر</span>
             <span id="ordSlot-f" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -678,6 +777,7 @@
           <div onclick="selectOrdinalTarget('g', 6, this)" id="ordTarget-g" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">g</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">16th</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">السادس عشر</span>
             <span id="ordSlot-g" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
@@ -685,51 +785,76 @@
           <div onclick="selectOrdinalTarget('h', 7, this)" id="ordTarget-h" class="p-2.5 rounded-2xl bg-white border-2 border-purple-200 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center text-center shadow-2xs transition">
             <span class="text-xs text-rose-600 font-black self-start">h</span>
             <span class="en-font font-black text-xl text-slate-900 my-0.5">20th</span>
+            <span class="arabic-trans text-[10px] text-purple-700 font-bold mb-1" dir="rtl">العشرون</span>
             <span id="ordSlot-h" class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-300 text-slate-400 font-black text-sm flex items-center justify-center">__</span>
           </div>
 
         </div>
 
-        <!-- 8 Ordinal Words Buttons (1 to 8) -->
+        <!-- 8 Ordinal Words Buttons (1 to 8) with Arabic Translations -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" dir="ltr" id="ordinalsWordsBank">
           
           <button onclick="pickOrdinalWord(1, 'second', this)" id="ordWord-1" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">1</span> second</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">1</span> second</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">الثاني</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(2, 'third', this)" id="ordWord-2" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">2</span> third</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">2</span> third</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">الثالث</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(3, 'seventh', this)" id="ordWord-3" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">3</span> seventh</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">3</span> seventh</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">السابع</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(4, 'thirteenth', this)" id="ordWord-4" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">4</span> thirteenth</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">4</span> thirteenth</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">الثالث عشر</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(5, 'first', this)" id="ordWord-5" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">5</span> first</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">5</span> first</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">الأول</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(6, 'sixteenth', this)" id="ordWord-6" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">6</span> sixteenth</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">6</span> sixteenth</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">السادس عشر</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(7, 'twentieth', this)" id="ordWord-7" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">7</span> twentieth</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">7</span> twentieth</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">العشرون</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
           <button onclick="pickOrdinalWord(8, 'fourth', this)" id="ordWord-8" class="match-item-card p-3 bg-white flex items-center justify-between shadow-2xs">
-            <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">8</span> fourth</span>
+            <div>
+              <span class="en-font font-black text-base text-slate-800"><span class="text-rose-600">8</span> fourth</span>
+              <span class="arabic-trans text-[11px] font-bold text-slate-400 block text-right" dir="rtl">الرابع</span>
+            </div>
             <span class="text-xs text-slate-400">🔊</span>
           </button>
 
@@ -748,9 +873,12 @@
               4
             </span>
             <span class="text-xl">🎧🎨</span>
-            <h2 class="en-font font-black text-lg sm:text-xl text-slate-900">
-              Listen, paint, and say.
-            </h2>
+            <div>
+              <h2 class="en-font font-black text-lg sm:text-xl text-slate-900 leading-tight">
+                Listen, paint, and say.
+              </h2>
+              <span class="arabic-trans text-xs font-bold text-emerald-800" dir="rtl">استمع، لوّن الدوائر، ثم انطق الأعداد الترتيبية</span>
+            </div>
           </div>
           
           <!-- Interactive Color Pipette Palette -->
@@ -769,7 +897,7 @@
           💡 انقر على أحد الألوان أعلاه ثم انقر على الدائرة لتلوينها وسماع نطق الكلمة باللغة الإنجليزية:
         </p>
 
-        <!-- The 10 Paintable Circles -->
+        <!-- The 10 Paintable Circles with Arabic Translation -->
         <div class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-2.5 sm:gap-3 text-center" dir="ltr" id="paintCirclesContainer">
           
           <!-- 1st -->
@@ -778,6 +906,7 @@
               1st
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">first</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الأول</span>
           </div>
 
           <!-- 2nd -->
@@ -786,6 +915,7 @@
               2nd
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">second</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الثاني</span>
           </div>
 
           <!-- 3rd -->
@@ -794,6 +924,7 @@
               3rd
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">third</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الثالث</span>
           </div>
 
           <!-- 4th -->
@@ -802,6 +933,7 @@
               4th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">fourth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الرابع</span>
           </div>
 
           <!-- 10th -->
@@ -810,6 +942,7 @@
               10th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">tenth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">العاشر</span>
           </div>
 
           <!-- 12th -->
@@ -818,6 +951,7 @@
               12th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">twelfth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الثاني عشر</span>
           </div>
 
           <!-- 13th -->
@@ -826,6 +960,7 @@
               13th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">thirteenth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الثالث عشر</span>
           </div>
 
           <!-- 16th -->
@@ -834,6 +969,7 @@
               16th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">sixteenth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">السادس عشر</span>
           </div>
 
           <!-- 18th -->
@@ -842,6 +978,7 @@
               18th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">eighteenth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">الثامن عشر</span>
           </div>
 
           <!-- 20th -->
@@ -850,6 +987,7 @@
               20th
             </button>
             <span class="en-font font-bold text-xs text-slate-700 mt-1">twentieth</span>
+            <span class="arabic-trans text-[10px] text-slate-400 font-bold" dir="rtl">العشرون</span>
           </div>
 
         </div>
@@ -870,7 +1008,7 @@
         </div>
 
         <div class="flex items-center gap-2" dir="rtl">
-          <span class="text-xs font-bold text-slate-500">ورقة عمل الأستاذ ماجد السويهري • Unit 4</span>
+          <span class="text-xs font-bold text-slate-500">ورقة عمل الأستاذ ماجد السويهري • Unit 4 (مترجم ومتزامن صوتياً)</span>
         </div>
 
         <div class="flex items-center gap-2">
@@ -988,6 +1126,7 @@
         this.enVoice = null;
         this.arVoice = null;
         this.rate = 1.0;
+        this.currentUtterance = null; // الاحتفاظ بمرجع الكائن لمنع انقطاع الصوت المفاجئ
         this.initVoices();
         if (this.synth && this.synth.onvoiceschanged !== undefined) {
           this.synth.onvoiceschanged = () => this.initVoices();
@@ -996,8 +1135,9 @@
       initVoices() {
         if (!this.synth) return;
         const voices = this.synth.getVoices();
+        if (!voices || voices.length === 0) return;
         this.enVoice = voices.find(v => v.lang === 'en-CA' || v.lang.includes('CA') || (v.lang.startsWith('en') && v.name.toLowerCase().includes('canada')))
-          || voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('zira')))
+          || voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('natural')))
           || voices.find(v => v.lang.startsWith('en'))
           || null;
 
@@ -1006,32 +1146,63 @@
       speakEnglish(text, onEnd = null) {
         if (sfx.muted || !this.synth) { if (onEnd) onEnd(); return; }
         this.synth.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
+
+        // تنظيف النص الإنجليزي من الرموز لتسهيل النطق الفصيح
+        const cleanText = text.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').replace(/[💬🔔]/g, '').trim();
+        const utter = new SpeechSynthesisUtterance(cleanText);
+        this.currentUtterance = utter;
+
         if (this.enVoice) utter.voice = this.enVoice;
         utter.lang = 'en-CA';
         utter.rate = this.rate;
-        utter.pitch = 1.05;
-        if (onEnd) {
-          utter.onend = onEnd;
-          utter.onerror = onEnd;
-        }
+        utter.pitch = 1.0;
+
+        let finished = false;
+        const onFinish = () => {
+          if (!finished) {
+            finished = true;
+            this.currentUtterance = null;
+            if (onEnd) onEnd();
+          }
+        };
+
+        utter.onend = onFinish;
+        utter.onerror = onFinish;
+
+        if (this.synth.paused) this.synth.resume();
         this.synth.speak(utter);
       }
       speakArabic(text, onEnd = null) {
         if (sfx.muted || !this.synth) { if (onEnd) onEnd(); return; }
         this.synth.cancel();
+
         const utter = new SpeechSynthesisUtterance(text);
+        this.currentUtterance = utter;
+
         if (this.arVoice) utter.voice = this.arVoice;
         utter.lang = 'ar-SA';
         utter.rate = 0.95;
-        if (onEnd) {
-          utter.onend = onEnd;
-          utter.onerror = onEnd;
-        }
+
+        let finished = false;
+        const onFinish = () => {
+          if (!finished) {
+            finished = true;
+            this.currentUtterance = null;
+            if (onEnd) onEnd();
+          }
+        };
+
+        utter.onend = onFinish;
+        utter.onerror = onFinish;
+
+        if (this.synth.paused) this.synth.resume();
         this.synth.speak(utter);
       }
       stop() {
-        if (this.synth) this.synth.cancel();
+        if (this.synth) {
+          this.synth.cancel();
+          this.currentUtterance = null;
+        }
       }
     }
     const speaker = new SpeechEngine();
@@ -1039,7 +1210,7 @@
     /* =========================================================================
        3. GLOBAL SCORE & CONTROLS
        ========================================================================= */
-    let totalScore = 0; // جميع الأسئلة غير مجابة وتبدأ النقاط من 0
+    let totalScore = 0;
 
     function updateScoreDisplay() {
       document.getElementById('scoreTracker').textContent = totalScore;
@@ -1048,27 +1219,12 @@
     /* =========================================================================
        4. EXERCISE 1: COMICS PLAYBACK & COMPREHENSION
        ========================================================================= */
-    const COMIC_DIALOGUES = [
-      "How was your first vacation abroad?",
-      "It was brilliant!",
-      "Excellent!",
-      "..and exciting!",
-      "Let's climb that wall!",
-      "I'm surprised at you, Glo. That's a dangerous idea!",
-      "It's more dangerous than other games!",
-      "I'm afraid of heights!",
-      "It's a terrible game!",
-      "Can I go second?",
-      "Don't be naughty, Glo!",
-      "It's the fifth time. Let's play a different game!",
-      "Yes! Let's tell our stories!",
-      "Oh, no! Time for class!"
-    ];
-
     let comicIndex = 0;
     let isPlayingStory = false;
 
-    function speakBubble(el, text) {
+    function speakBubble(el) {
+      const text = el.getAttribute('data-english');
+      if (!text) return;
       sfx.playPop();
       document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
       el.classList.add('is-speaking');
@@ -1080,36 +1236,41 @@
     function playFullComicStory() {
       sfx.playPop();
       if (isPlayingStory) {
-        speaker.stop();
-        isPlayingStory = false;
-        document.getElementById('btnPlayAllStory').innerHTML = `<span>▶️</span><span>استمع للقصة كاملة بالترتيب</span>`;
-        document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+        stopComicStory();
         return;
       }
 
+      const bubbles = document.querySelectorAll('.speech-bubble');
+      if (bubbles.length === 0) return;
+
       isPlayingStory = true;
       comicIndex = 0;
-      document.getElementById('btnPlayAllStory').innerHTML = `<span>⏹️</span><span>إيقاف القراءة</span>`;
+      document.getElementById('btnPlayAllStory').innerHTML = `<span>⏹️</span><span>إيقاف القراءة المتزامنة</span>`;
       playNextComicDialogue();
     }
 
+    function stopComicStory() {
+      isPlayingStory = false;
+      speaker.stop();
+      document.getElementById('btnPlayAllStory').innerHTML = `<span>▶️</span><span>استمع للقصة كاملة مع التظليل</span>`;
+      document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+    }
+
     function playNextComicDialogue() {
-      if (!isPlayingStory || comicIndex >= COMIC_DIALOGUES.length) {
-        isPlayingStory = false;
-        document.getElementById('btnPlayAllStory').innerHTML = `<span>▶️</span><span>استمع للقصة كاملة بالترتيب</span>`;
-        document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('is-speaking'));
+      const bubbles = document.querySelectorAll('.speech-bubble');
+      if (!isPlayingStory || comicIndex >= bubbles.length) {
+        stopComicStory();
         confetti({ particleCount: 30, spread: 60 });
         showToast(true, "اكتملت قراءة القصة كاملة! 🌟", "يمكنك الآن الإجابة على الأسئلة في الأعلى.");
         return;
       }
 
-      const text = COMIC_DIALOGUES[comicIndex];
-      const bubbles = document.querySelectorAll('.speech-bubble');
       bubbles.forEach(b => b.classList.remove('is-speaking'));
-      if (bubbles[comicIndex]) {
-        bubbles[comicIndex].classList.add('is-speaking');
-        bubbles[comicIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      const currentBubble = bubbles[comicIndex];
+      const text = currentBubble.getAttribute('data-english');
+
+      currentBubble.classList.add('is-speaking');
+      currentBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
       comicIndex++;
       speaker.speakEnglish(text, () => {
@@ -1118,13 +1279,27 @@
       });
     }
 
+    function readQuestionSentence(qNum) {
+      sfx.playPop();
+      if (qNum === 1) {
+        const fullSent = ex1Solved[1] 
+          ? "The All Sorts are on the playground."
+          : "The All Sorts are... where are they?";
+        speaker.speakEnglish(fullSent);
+      } else {
+        const fullSent = ex1Solved[2] 
+          ? "They are playing a game."
+          : "They are... what are they doing?";
+        speaker.speakEnglish(fullSent);
+      }
+    }
+
     const ex1Solved = { 1: false, 2: false };
 
-    function checkEx1Question(qNum, chosenOpt, isCorrect, btnEl) {
+    function checkEx1Question(qNum, chosenOpt, isCorrect, btnEl, optText) {
       if (ex1Solved[qNum]) return;
       sfx.playPop();
 
-      const parent = btnEl.parentElement;
       const blank = document.getElementById(`blank-q${qNum}`);
 
       if (isCorrect) {
@@ -1133,22 +1308,30 @@
         totalScore += 1;
         updateScoreDisplay();
 
-        btnEl.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-left font-black text-xs sm:text-sm text-emerald-950 flex items-center gap-2 pop-success";
-        blank.textContent = btnEl.querySelector('span:last-child').textContent;
+        btnEl.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-left font-black text-xs sm:text-sm text-emerald-950 flex items-center justify-between pop-success";
+        blank.textContent = optText;
         blank.className = "border-b-2 border-emerald-500 px-3 inline-block font-black text-emerald-700 pop-success";
 
         confetti({ particleCount: 30, spread: 50 });
+        
+        // قراءة الجملة الإنجليزية الكاملة والصحيحة بعد تعزيز الطالب باللغة العربية
+        const fullSentence = (qNum === 1) 
+          ? "The All Sorts are on the playground." 
+          : "They are playing a game.";
+
         speaker.speakArabic("الإجابة صحيحة", () => {
-          speaker.speakEnglish(blank.textContent);
+          speaker.speakEnglish(fullSentence);
         });
 
-        showToast(true, "أحسنت! إجابة صحيحة", `السؤال ${qNum}: الاختيار (${chosenOpt}) صحيح تماماً.`);
+        showToast(true, "أحسنت! إجابة صحيحة", fullSentence);
       } else {
         sfx.playError();
         btnEl.classList.add('shake-anim', 'bg-rose-100', 'border-rose-400');
         setTimeout(() => btnEl.classList.remove('shake-anim', 'bg-rose-100', 'border-rose-400'), 450);
 
-        speaker.speakArabic("إجابة خاطئة");
+        speaker.speakEnglish(optText, () => {
+          speaker.speakArabic("إجابة خاطئة");
+        });
         showToast(false, "حاول مرة أخرى!", "استمع للقصة جيداً وافحص الخيارات.");
       }
     }
@@ -1247,7 +1430,7 @@
         }, 450);
 
         speaker.speakArabic("إجابة خاطئة");
-        showToast(false, "حاول مرة أخرى!", "الصفحة لا تطابق هذه الصورة.");
+        showToast(false, "حاول مرة أخرى!", "الصفة لا تطابق هذه الصورة.");
       }
 
       selectedAdj = null;
@@ -1418,8 +1601,12 @@
       ex1Solved[1] = false;
       ex1Solved[2] = false;
       document.querySelectorAll('#qBox-1 .quiz-option-btn, #qBox-2 .quiz-option-btn').forEach(b => {
-        b.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2";
+        b.className = "quiz-option-btn w-full p-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 hover:border-amber-400 text-left font-bold text-xs sm:text-sm text-slate-800 flex items-center justify-between";
       });
+      document.getElementById('blank-q1').textContent = "_________";
+      document.getElementById('blank-q2').textContent = "_________";
+      document.getElementById('blank-q1').className = "border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700";
+      document.getElementById('blank-q2').className = "border-b-2 border-slate-400 px-3 inline-block font-bold text-sky-700";
 
       // Reset Ex 2 (جميع الأسئلة من 1 إلى 8 دون استثناء وبالمقاس الجديد المصغر)
       for (let i = 1; i <= 8; i++) {
